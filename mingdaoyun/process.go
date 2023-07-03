@@ -9,6 +9,8 @@ import (
 	"github.com/Lany-w/mingdaoyun-go-sdk/request"
 )
 
+var _spliceType = 1
+
 func processList(mdy *MingDaoYun) params.MdyListResponse {
 	result := params.MdyListResponse{}
 	if mdy.PageSize == 0 {
@@ -95,7 +97,7 @@ func processFilter(w []params.Filter, md *MingDaoYun) {
 		item.ControlId = val.Field
 		item.FilterType = filterType
 		item.DataType = getFieldDataType(md, val.Field)
-		item.SpliceType = 1
+		item.SpliceType = _spliceType
 		item.Value = val.Value
 
 		md.Filters = append(md.Filters, item)

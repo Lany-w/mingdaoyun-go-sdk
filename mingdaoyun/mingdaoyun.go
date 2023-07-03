@@ -54,6 +54,13 @@ func (md *MingDaoYun) Table(tableName string) *MingDaoYun {
 }
 
 func (md *MingDaoYun) Where(w []params.Filter) *MingDaoYun {
+	_spliceType = 1
+	processFilter(w, md)
+	return md
+}
+
+func (md *MingDaoYun) WhereOr(w []params.Filter) *MingDaoYun {
+	_spliceType = 2
 	processFilter(w, md)
 	return md
 }
