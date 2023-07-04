@@ -1,7 +1,5 @@
 Mingdaoyun-go-sdk
 
-===
-
 针对mingdaoyun的API封装的包  
 
 Python 版本：[https://github.com/ghostlitao/mingdaoyun-python-sdk](https://github.com/ghostlitao/mingdaoyun-python-sdk)
