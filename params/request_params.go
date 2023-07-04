@@ -32,16 +32,16 @@ type RequestParams struct {
 }
 
 type FilterItem struct {
-	ControlId  string  `json:"controlId,omitempty"`
-	DataType   float64 `json:"dataType,omitempty"`
-	FilterType int     `json:"filterType,omitempty"`
-	Value      string  `json:"value,omitempty"`
-	SpliceType int     `json:"spliceType,omitempty"`
+	ControlId  string      `json:"controlId,omitempty"`
+	DataType   float64     `json:"dataType,omitempty"`
+	FilterType int         `json:"filterType,omitempty"`
+	Value      interface{} `json:"value,omitempty"`
+	SpliceType int         `json:"spliceType,omitempty"`
 }
 
 type Control struct {
 	ControlId    string       `json:"controlId,omitempty"`
-	Value        string       `json:"value,omitempty"`
+	Value        interface{}  `json:"value,omitempty"`
 	ValueType    int          `json:"valueType,omitempty"`
 	EditType     int          `json:"editType,omitempty"`
 	ControlFiles []Base64File `json:"controlFiles,omitempty"`

@@ -45,6 +45,9 @@ func Client() *MingDaoYun {
 
 //设置要操作的worksheet
 func (md *MingDaoYun) Table(tableName string) *MingDaoYun {
+	if Host == "" || _appKey == "" || _sign == "" {
+		panic("请正确设置明道云参数!")
+	}
 	md.WorkSheetId = tableName
 	if md.WorksheetMap.Data.WorksheetId != tableName {
 		processTable(md)
