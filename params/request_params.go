@@ -87,7 +87,7 @@ type MdyListItemResponse struct {
 type Filter struct {
 	Field   string
 	Operate string //支持 =,!=,contains,startWith,endWith,notContain,>,>=,<,<=,DateEnum,NDateEnum,RCEq,RCNe
-	Value   string
+	Value   interface{}
 }
 
 func (*RequestParams) do()         {}
