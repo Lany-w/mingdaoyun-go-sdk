@@ -31,12 +31,10 @@ func processList(mdy *MingDaoYun) params.MdyListResponse {
 			if result.Data.Total == 0 {
 				json.Unmarshal(dataList, &result)
 				result.Data.Total = total
-			} else {
-				listItem := params.MdyListResponse{}
-				json.Unmarshal(dataList, &listItem)
-				result.Data.Rows = append(result.Data.Rows, listItem.Data.Rows...)
-				//fmt.Println(len(result.Data.Rows))
 			}
+			listItem := params.MdyListResponse{}
+			json.Unmarshal(dataList, &listItem)
+			result.Data.Rows = append(result.Data.Rows, listItem.Data.Rows...)
 		}
 
 		result.Success = true
