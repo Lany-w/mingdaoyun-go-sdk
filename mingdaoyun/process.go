@@ -90,7 +90,7 @@ func processFilter(w []params.Filter, md *MingDaoYun) {
 		case "RCNe":
 			filterType = 25
 		default:
-			panic("不支持的条件符号!")
+			panic("不支持的条件符号<< " + val.Operate + " >>")
 		}
 		item.ControlId = val.Field
 		item.FilterType = filterType
