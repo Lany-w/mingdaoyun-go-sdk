@@ -29,7 +29,7 @@ func processList(mdy *MingDaoYun) params.MdyListResponse {
 			mdy.PageIndex = i
 			dataList := request.Do(Host+ListUri, mdy)
 			if result.Data.Total == 0 {
-				json.Unmarshal(dataList, &result)
+				//json.Unmarshal(dataList, &result)
 				result.Data.Total = total
 			}
 			listItem := params.MdyListResponse{}
