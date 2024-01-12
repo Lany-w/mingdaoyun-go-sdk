@@ -1,7 +1,11 @@
 package mingdaoyun
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/Lany-w/mingdaoyun-go-sdk/params"
+	"github.com/Lany-w/mingdaoyun-go-sdk/request"
 )
 
 type MingDaoYun struct {
@@ -31,6 +35,12 @@ func Init(host string, appkey string, sign string) {
 	Host = host
 	_appKey = appkey
 	_sign = sign
+	request.RequestClient = &http.Client{
+		Transport: &http.Transport{
+			MaxIdleConns:    20,               // 最大空闲连接数
+			IdleConnTimeout: 30 * time.Second, // 空闲连接的超时时间
+		},
+	}
 }
 
 func Client() *MingDaoYun {
