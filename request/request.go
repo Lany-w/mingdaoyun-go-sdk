@@ -3,13 +3,12 @@ package request
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/Lany-w/mingdaoyun-go-sdk/params"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/Lany-w/mingdaoyun-go-sdk/params"
 )
 
-var RequestClient *http.Client
+//var RequestClient *http.Client
 
 func Do(url string, params params.MingDaoRequest) []byte {
 	body, _ := json.Marshal(params)
@@ -22,6 +21,7 @@ func Do(url string, params params.MingDaoRequest) []byte {
 		},
 	} */
 
+	RequestClient := &http.Client{}
 	resp, err := RequestClient.Post(url, "application/json", bytes.NewBuffer(body))
 	if err != nil {
 		panic("POST request failed:" + err.Error())
