@@ -22,19 +22,20 @@ func init() {
 		Filename:   "mingdaoyun.log",
 		MaxSize:    64, // megabytes
 		MaxBackups: 5,
-		MaxAge:     7,    //days
-		Compress:   true, // disabled by default
+		MaxAge:     7,     //days
+		Compress:   false, // disabled by default
 	}).AddLevelWriter(glg.ERR, &lumberjack.Logger{
 		Filename:   "error_mingdaoyun.log",
 		MaxSize:    64, // megabytes
 		MaxBackups: 5,
-		MaxAge:     7,    //days
-		Compress:   true, // disabled by default
+		MaxAge:     7,     //days
+		Compress:   false, // disabled by default
 	})
 }
 
 func Do(url string, params params.MingDaoRequest) []byte {
 	body, _ := json.Marshal(params)
+	GlgLogger.Debug(string(body))
 	//fmt.Printf("url:%v, %+v \n", url, string(body))
 
 	/* client := &http.Client{
@@ -54,6 +55,6 @@ func Do(url string, params params.MingDaoRequest) []byte {
 
 	//fmt.Println("Response Status:", resp.Status)
 	_body, _ := ioutil.ReadAll(resp.Body)
-	GlgLogger.Debug(_body)
+	GlgLogger.Debug(string(_body))
 	return _body
 }
