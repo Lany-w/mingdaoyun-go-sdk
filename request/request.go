@@ -3,16 +3,35 @@ package request
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
-	"net/http"
-	"time"
-
 	"github.com/Lany-w/mingdaoyun-go-sdk/params"
 	"github.com/kpango/fastime"
 	"github.com/kpango/glg"
+	"github.com/natefinch/lumberjack"
+	"io/ioutil"
+	"net/http"
+	"time"
 )
 
+var GlgLogger *glg.Glg
+
 //var RequestClient *http.Client
+func init() {
+	location, _ := time.LoadLocation("Asia/Shanghai")
+	fastime.SetLocation(location)
+	GlgLogger = glg.Get().SetMode(glg.BOTH).AddLevelWriter(glg.DEBG, &lumberjack.Logger{
+		Filename:   "mingdaoyun.log",
+		MaxSize:    64, // megabytes
+		MaxBackups: 5,
+		MaxAge:     7,    //days
+		Compress:   true, // disabled by default
+	}).AddLevelWriter(glg.ERR, &lumberjack.Logger{
+		Filename:   "error_mingdaoyun.log",
+		MaxSize:    64, // megabytes
+		MaxBackups: 5,
+		MaxAge:     7,    //days
+		Compress:   true, // disabled by default
+	})
+}
 
 func Do(url string, params params.MingDaoRequest) []byte {
 	body, _ := json.Marshal(params)
@@ -24,22 +43,17 @@ func Do(url string, params params.MingDaoRequest) []byte {
 			IdleConnTimeout: 30 * time.Second, // 空闲连接的超时时间
 		},
 	} */
-	location, _ := time.LoadLocation("Asia/Shanghai")
-
-	fastime.SetLocation(location)
-	errlog := glg.FileWriter("./error_mingdaoyun.log", 0666)
-	defer errlog.Close()
-	glg.Get().SetMode(glg.BOTH).AddLevelWriter(glg.ERR, errlog)
 	RequestClient := &http.Client{}
 	resp, err := RequestClient.Post(url, "application/json", bytes.NewBuffer(body))
 	if err != nil {
-		glg.Error("MingDaoYun Request Error:" + err.Error())
-		glg.Error(string(body))
+		GlgLogger.Error(string(body))
+		GlgLogger.Error(err.Error())
 		panic("POST request failed:" + err.Error())
 	}
 	defer resp.Body.Close()
 
 	//fmt.Println("Response Status:", resp.Status)
 	_body, _ := ioutil.ReadAll(resp.Body)
+	GlgLogger.Debug(_body)
 	return _body
 }
