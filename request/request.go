@@ -35,7 +35,7 @@ func init() {
 
 func Do(url string, params params.MingDaoRequest) []byte {
 	body, _ := json.Marshal(params)
-	GlgLogger.Debug(string(body))
+	//GlgLogger.Debug(string(body))
 	//fmt.Printf("url:%v, %+v \n", url, string(body))
 
 	/* client := &http.Client{
@@ -55,6 +55,6 @@ func Do(url string, params params.MingDaoRequest) []byte {
 
 	//fmt.Println("Response Status:", resp.Status)
 	_body, _ := ioutil.ReadAll(resp.Body)
-	GlgLogger.Debug(string(_body))
+	//GlgLogger.Debug(string(_body))
 	return _body
 }
